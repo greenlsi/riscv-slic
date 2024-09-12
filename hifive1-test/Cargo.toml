@@ -23,3 +23,11 @@ required-features = ["clint"]
 [[example]]
 name = "mecall"
 required-features = ["mecall"]
+
+[[example]]
+name = "clint_nested"
+required-features = ["clint"]
+
+[[example]]
+name = "mecall_nested"
+required-features = ["mecall"]
