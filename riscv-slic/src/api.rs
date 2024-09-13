@@ -6,6 +6,7 @@ use riscv::register::mie::{clear_msoft as disable_swi, set_msoft as enable_swi};
 use riscv::register::sie::{clear_ssoft as disable_swi, set_ssoft as enable_swi};
 
 extern "Rust" {
+    #[cfg(not(feature = "mecall-backend"))]
     fn __riscv_slic_swi_unpend();
     fn __riscv_slic_get_threshold() -> u8;
     fn __riscv_slic_set_threshold(priority: u8);
@@ -28,6 +29,7 @@ pub fn clear_interrupts() {
     unsafe {
         #[cfg(not(feature = "mecall-backend"))]
         disable_swi();
+        #[cfg(not(feature = "mecall-backend"))]
         __riscv_slic_swi_unpend();
         __riscv_slic_set_threshold(u8::MAX);
     }

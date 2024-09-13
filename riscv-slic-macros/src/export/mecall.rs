@@ -27,9 +27,7 @@ pub fn export_quote(_input: &CodegenInput) -> TokenStream {
         #[inline]
         #[no_mangle]
         pub unsafe fn __riscv_slic_swi_pend() {
-            let mepc = riscv_slic::riscv::register::mepc::read();
-            riscv_slic::riscv::asm::ecall();
-            riscv_slic::riscv::register::mepc::write(mepc);
+            riscv_slic::nested(|| { riscv_slic::riscv::asm::ecall(); });
         }
 
         /// Increments the machine exception program counter by 4
